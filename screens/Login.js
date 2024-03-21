@@ -61,7 +61,7 @@ const Login = () => {
                         value={password}
                         onChangeText={password => setPassword(password)}
                     />
-                    <Button loading={loading} style={styles.button} onPress={submitHandler} uppercase textColor='white'>
+                    <Button loading={loading} disabled={loading} style={styles.button} onPress={submitHandler} uppercase textColor='white'>
                         <Text style={{ fontWeight: '700', fontSize: 20 }}>Login</Text>
                     </Button>
                 </View>
