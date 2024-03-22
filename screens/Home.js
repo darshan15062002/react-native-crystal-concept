@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
 import { color, defaultstyling } from '../style/style'
 import { useSelector } from 'react-redux'
@@ -7,7 +7,11 @@ import Card from '../components/Card';
 import ideabg1 from '../assets/ideabg3.png'
 import ideabg2 from '../assets/ideabg2.png'
 import ideabg3 from '../assets/ideabg4.png'
+import { Calendar } from 'react-native-calendars';
 const Home = () => {
+    const currentDate = new Date();
+    // Format the current date as required by the Calendar component
+    const formattedCurrentDate = currentDate.toISOString().split('T')[0];
     const { user } = useSelector((state) => state.user)
     const screenWidth = Dimensions.get("window").width;
     const cardData = [{
@@ -42,12 +46,12 @@ const Home = () => {
     };
 
     return (
-        <View style={defaultstyling}>
-            <View style={{ flexDirection: 'row', gap: 10, top: 30, justifyContent: 'flex-end', right: 15 }}>
+        <ScrollView showsVerticalScrollIndicator={true} style={{ ...defaultstyling }}>
+            <View style={{ flexDirection: 'row', gap: 10, marginTop: 30, justifyContent: 'flex-end', right: 15 }}>
                 <Text style={{ fontSize: 24, color: color.color1, fontWeight: '900' }}>Crystal</Text>
                 <Text style={{ color: color.color6, fontSize: 24, fontWeight: '900', fontFamily: 'Roboto' }}>Concept</Text>
             </View>
-            <View style={{ top: 60 }}>
+            <View style={{ marginTop: 30 }}>
                 <Text style={styles.headerText}>
                     <Text style={{ color: color.color1 }}> Hey, </Text> {user?.name} !
                 </Text>
@@ -57,7 +61,7 @@ const Home = () => {
                     <Text style={{ color: 'white', fontSize: 25, fontWeight: '900' }}>Score</Text>
                     <Text style={{ color: color.color6, fontWeight: '600' }} ><Text style={{ color: color.color1, fontWeight: '500' }}>225  </Text> of   400 Points</Text>
                     <Text style={{
-                        top: 20,
+
                         backgroundColor: '#525A60',
                         color: 'white',
                         paddingHorizontal: 20,
@@ -92,13 +96,65 @@ const Home = () => {
                 </View>
             </View>
 
-            <View style={{ flexWrap: 'wrap', flexDirection: 'row', top: 120, justifyContent: 'space-between', gap: 10 }}>
+            <View style={{ flexWrap: 'wrap', marginTop: 20, flexDirection: 'row', justifyContent: 'space-between', gap: 10 }}>
                 {cardData?.map((item, index) => (
                     <Card key={index} title={item.title} ideabg={item.ideabg} />
                 ))
                 }
             </View>
-        </View >
+
+            <Calendar
+                // Customize the appearance of the calendar
+                style={{
+                    marginTop: 20,
+
+                    marginBottom: 20,
+                    paddingBottom: 30,
+                    borderRadius: 20,
+
+                }}
+                // Specify the current date
+                current={formattedCurrentDate}
+
+
+                // Mark specific dates as marked
+                markingType={'period'}
+                markedDates={{
+                    '2024-05-20': { textColor: 'green' },
+                    '2024-05-22': { startingDay: true, color: 'green' },
+                    '2024-05-23': { selected: true, endingDay: true, color: 'green', textColor: 'gray' },
+                    '2024-05-04': { disabled: true, startingDay: true, color: 'green', endingDay: true }
+                }}
+                theme={{
+
+                    backgroundColor: '#262D3A',
+                    calendarBackground: '#262D3A',
+                    textSectionTitleColor: '#b6c1cd',
+                    textSectionTitleDisabledColor: '#d9e1e8',
+                    selectedDayBackgroundColor: '#00adf5',
+                    selectedDayTextColor: '#ffffff',
+                    todayTextColor: '#00adf5',
+                    dayTextColor: 'gray',
+                    textDisabledColor: '#d9e1e8',
+                    dotColor: '#00adf5',
+                    selectedDotColor: '#ffffff',
+                    arrowColor: color.color1,
+                    disabledArrowColor: '#d9e1e8',
+                    monthTextColor: 'white',
+                    indicatorColor: 'blue',
+                    textDayFontFamily: 'monospace',
+                    textMonthFontFamily: 'monospace',
+                    textDayHeaderFontFamily: 'monospace',
+                    textDayFontWeight: '300',
+                    textMonthFontWeight: 'bold',
+                    textDayHeaderFontWeight: '300',
+                    textDayFontSize: 12,
+                    textMonthFontSize: 12,
+                    textDayHeaderFontSize: 12
+                }}
+            />
+
+        </ScrollView >
     )
 }
 
@@ -106,7 +162,7 @@ export default Home
 
 const styles = StyleSheet.create({
     container: {
-        top: 90,
+        marginTop: 20,
         gap: 10,
         borderRadius: 20,
         elevation: 5,
