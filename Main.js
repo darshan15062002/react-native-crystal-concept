@@ -8,6 +8,7 @@ import Toast from 'react-native-toast-message'
 import { useDispatch } from 'react-redux'
 import { loadUser } from './redux/action/userAction'
 import Start from './screens/Start'
+import Navigator from './components/Navigator'
 
 const Main = () => {
     const Stack = createNativeStackNavigator()
@@ -24,6 +25,7 @@ const Main = () => {
 
 
         <NavigationContainer>
+
             <Stack.Navigator initialRouteName='start' screenOptions={{ headerShown: false }}>
                 <Stack.Group >
                     <Stack.Screen name='start' component={Start} />
@@ -33,6 +35,7 @@ const Main = () => {
 
                 </Stack.Group>
             </Stack.Navigator>
+            {/* <Navigator /> */}
             <Toast position='top' topOffset={80} />
         </NavigationContainer>
     )

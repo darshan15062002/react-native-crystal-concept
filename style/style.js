@@ -6,7 +6,7 @@ export const color = StyleSheet.create({
     color1: '#EB676A',
     color1_light: 'rgba(93,56,145,1)',
     color1_light2: 'rgba(235, 103, 106,0.4)',
-    color2: 'black',
+    color2: '#191B20',
     color3: 'rgb(38, 45, 77)',
     color4: 'transparent',
     color5: '#DDDDDD',
